@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941761206155",
+    "project_id": "whatsapp-815f9",
+    "storage_bucket": "whatsapp-815f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941761206155:android:922ec54386a49a1eb0018e",
+        "android_client_info": {
+          "package_name": "com.jesseld.whatsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4sFGoJsyDtQLaF6YLX0w-8qI_tLDHuk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
