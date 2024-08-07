@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CodeVerifyScreen extends StatefulWidget {
   const CodeVerifyScreen({super.key});
@@ -29,8 +30,20 @@ class _CodeVerifyScreenState extends State<CodeVerifyScreen> {
             ],
           ),
         );
+
+        
       },
     );
+
+    Future.delayed(Duration(seconds: 3)).then((value) => _navigateToHomeScreen());
+  
+    
+  }
+
+  void _navigateToHomeScreen() async{
+    Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('is_logged', true);
   }
 
   @override

@@ -1,7 +1,16 @@
 {
   "@@locale": "en",
   "helloWorld": "Hello World!",
-  "welcomeToWhatsapp": "Welcome to WhatsApp",
+  "welcomeToWhatsapp": "Welcome to WhatsApp 2",
   "toGetStartedChooseYourLanguage": "To get started, choose your language",
-  "englishLang": "English"
+  "englishLang": "English",
+  "englishLocale": "English (United States)",
+  "portugueseLang": "Portuguese",
+  "portugueseLocale": "Portuguese (Brazil)",
+  "next": "Next",
+  "readOur": "Read our Privacy Policy.",
+  "privacyPolicyDOT": "Read our Privacy Policy.",
+  "tapAgreeAndContinueToAcceptThe": "Tap 'AGREE AND CONTINUE' to accept the",
+  "termsOfServiceDOT": "Terms of Service.",
+  "aGREE_AND_CONTINUE": "AGREE AND CONTINUE"
 }

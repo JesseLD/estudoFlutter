@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp/screens/login_screen.dart';
 import 'package:whatsapp/utils/custom_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -39,18 +39,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                 child: Column(
                   children: [
-                    const Text(
-                      "Welcome to Whatsapp",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 48),
+                      child: Text(
+                        AppLocalizations.of(context)!.welcomeToWhatsapp,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                          height: 1.2,
+                        ),
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
                     RichText(
                       textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        text: "Read our ",
+                      text: TextSpan(
+                        text: "${AppLocalizations.of(context)!.readOur} ",
                         style: TextStyle(
                           color: CustomColors.gray,
                           fontWeight: FontWeight.w500,
@@ -58,15 +66,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                         children: [
                           TextSpan(
-                            text: "Privacy Policy.",
+                            text:
+                                AppLocalizations.of(context)!.privacyPolicyDOT,
                             style: TextStyle(color: Colors.blue),
                           ),
                           TextSpan(
-                            text: " Tap AGREE AND CONTINUE' to accept the ",
+                            text:
+                                " ${AppLocalizations.of(context)!.tapAgreeAndContinueToAcceptThe} ",
                             style: TextStyle(color: CustomColors.gray),
                           ),
                           TextSpan(
-                            text: "Terms of Service.",
+                            text:
+                                AppLocalizations.of(context)!.termsOfServiceDOT,
                             style: TextStyle(color: Colors.blue),
                           ),
                         ],
@@ -88,14 +99,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           WidgetStateProperty.all(Colors.teal[700]),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
-                      );
+                      Navigator.pushNamed(context, "/login_screen");
                     },
-                    child: const Text(
-                      "AGREE AND CONTINUE",
+                    child: Text(
+                      AppLocalizations.of(context)!.aGREE_AND_CONTINUE,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

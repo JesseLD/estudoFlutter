@@ -21,7 +21,7 @@ class _AppLoadingState extends State<AppLoading> {
     if (mounted) {
       // Navigator.pushNamedAndRemoveUntil(context, "/welcome_screen");
       Navigator.pushNamedAndRemoveUntil(
-          context, "/welcome_screen", (route) => false);
+          context, "/language_select", (route) => false);
     }
   }
 

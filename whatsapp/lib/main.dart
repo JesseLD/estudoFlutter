@@ -1,13 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp/firebase_options.dart';
-import 'package:whatsapp/screens/app_loading.dart';
-import 'package:whatsapp/screens/home_screen.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:whatsapp/screens/language_select.dart';
-import 'package:whatsapp/screens/login_screen.dart';
-import 'package:whatsapp/screens/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:whatsapp/firebase_options.dart';
+import 'package:whatsapp/routes/route_generator.dart';
+import 'package:whatsapp/screens/app_loading.dart';
+import 'package:whatsapp/screens/language_selector.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,22 +15,69 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final prefs = await SharedPreferences.getInstance();
+  final localeCode = prefs.getString('lang') ?? 'en';
 
-  runApp(const MyApp());
+  runApp(MyApp(initialLocale: localeCode));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final String initialLocale;
+  const MyApp({
+    super.key,
+    required this.initialLocale,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale _locale = Locale('en');
+
+  void setLocale(Locale value) async {
+    setState(() {
+      _locale = value;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lang', value.languageCode);
+  }
+
+  void _navigateToHomeScreen() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isLogged = await prefs.getBool('is_logged');
+    if (isLogged == null || !isLogged) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, "/language_select", (route) => false);
+      return;
+    }
+
+    Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+  }
+
+  // void _loadLocale() async {
+  //   final String? langCode = await SharedPreferencesService.getString("langCode");
+  //   if (langCode != null) {
+  //     setState(() {
+  //       _locale = Locale(langCode);
+  //     });
+  //   }
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _locale = Locale(widget.initialLocale);
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: _locale,
       title: 'Whatsapp',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -64,11 +111,10 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       home: AppLoading(),
+      initialRoute: "/",
+      onGenerateRoute: RouteGenerator.generateRoute,
       routes: {
-        "/home": (context) => HomeScreen(),
-        "/language_select": (context) => LanguageSelect(),
-        "/welcome_screen": (context) => WelcomeScreen(),
-        "/lobin_screen": (context) => LoginScreen()
+        "/language_select": (context) => LanguageSelect(setLocale: setLocale),
       },
     );
   }
